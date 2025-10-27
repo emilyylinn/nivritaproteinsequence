@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Protein Sequence Analyzer&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Load Tailwind CSS for modern styling --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Inter', sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #f0f4f8;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.matrix {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>/* Custom style for the AA codes */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: inline-block;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body class="p-4 md:p-8"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-xl shadow-2xl"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h1 class="text-3xl md:text-4xl font-extrabold text-blue-700 mb-6 text-center"&gt;Protein Sequence Analyzer&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="text-gray-600 mb-8 text-center"&gt;Enter a protein sequence (using single-letter codes) to analyze its composition and properties.&lt;/p&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Input Area --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="bg-gray-50 p-6 rounded-lg border border-gray-200 mb-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;label for="sequenceInput" class="block text-lg font-semibold text-gray-800 mb-2"&gt;Protein Sequence:&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;textarea id="sequenceInput" rows="5" placeholder="Example: MVLSADK"<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm"&gt;MALW MRLL PLLC GVFW GDPL AKGD AAGS GLPQ ALIL QQQL LLLG LLLV PGQS LEPL ALGE LVDG QVEL GGGG PGAG SLQP LALE GSLQ KRGI VEQC CTSI CSLY QLEN YCNC&lt;/textarea&gt;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="analyzeSequence()"<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>class="mt-4 w-full bg-blue-600 text-white font-bold py-3 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-[1.01]"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>Analyze Sequence</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p id="errorMsg" class="mt-3 text-center text-red-600 font-semibold hidden"&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Results Area --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="resultsArea" class="hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2 class="text-2xl font-bold text-gray-800 border-b pb-2 mb-4"&gt;Analysis Results&lt;/h2&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Summary Statistics --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Length --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="bg-blue-100 p-4 rounded-lg text-center shadow"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-sm text-blue-700 font-semibold"&gt;Sequence Length&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p id="resultLength" class="text-3xl font-extrabold text-blue-900 mt-1"&gt;0&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Molecular Weight --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="bg-green-100 p-4 rounded-lg text-center shadow"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-sm text-green-700 font-semibold"&gt;Molecular Weight (Da)&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p id="resultMass" class="text-3xl font-extrabold text-green-900 mt-1"&gt;0.00&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Hydrophobicity --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="bg-yellow-100 p-4 rounded-lg text-center shadow"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-sm text-yellow-700 font-semibold"&gt;Avg. Hydrophobicity Index&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p id="resultHydrophobicity" class="text-3xl font-extrabold text-yellow-900 mt-1"&gt;0.000&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p id="resultInterpretation" class="mb-6 text-sm italic text-gray-700 p-3 bg-gray-100 rounded-lg border-l-4 border-gray-400"&gt;&lt;/p&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Composition Table --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3 class="text-xl font-semibold text-gray-800 mb-3"&gt;Amino Acid Composition (%)&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="compositionList" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Composition items will be inserted here by JavaScript --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Data copied from the Python file for analysis</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const AMINO_ACID_PROPERTIES = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'A': {'name': 'Alanine', 'mass': 89.09, 'hydrophobicity': 1.8},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'R': {'name': 'Arginine', 'mass': 174.20, 'hydrophobicity': -4.5},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'N': {'name': 'Asparagine', 'mass': 132.12, 'hydrophobicity': -3.5},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'D': {'name': 'Aspartic acid', 'mass': 133.10, 'hydrophobicity': -3.5},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'C': {'name': 'Cysteine', 'mass': 121.16, 'hydrophobicity': 2.5},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'Q': {'name': 'Glutamine', 'mass': 146.15, 'hydrophobicity': -3.5},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'E': {'name': 'Glutamic acid', 'mass': 147.13, 'hydrophobicity': -3.5},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'G': {'name': 'Glycine', 'mass': 75.07, 'hydrophobicity': -0.4},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'H': {'name': 'Histidine', 'mass': 155.16, 'hydrophobicity': -3.2},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'I': {'name': 'Isoleucine', 'mass': 131.18, 'hydrophobicity': 4.5},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'L': {'name': 'Leucine', 'mass': 131.18, 'hydrophobicity': 3.8},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'K': {'name': 'Lysine', 'mass': 146.19, 'hydrophobicity': -3.9},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'M': {'name': 'Methionine', 'mass': 149.21, 'hydrophobicity': 1.9},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'F': {'name': 'Phenylalanine', 'mass': 165.19, 'hydrophobicity': 2.8},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'P': {'name': 'Proline', 'mass': 115.13, 'hydrophobicity': -1.6},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'S': {'name': 'Serine', 'mass': 105.09, 'hydrophobicity': -0.8},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'T': {'name': 'Threonine', 'mass': 119.12, 'hydrophobicity': -0.7},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'W': {'name': 'Tryptophan', 'mass': 204.23, 'hydrophobicity': -0.9},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'Y': {'name': 'Tyrosine', 'mass': 181.19, 'hydrophobicity': -1.3},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'V': {'name': 'Valine', 'mass': 117.15, 'hydrophobicity': 4.2},</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const WATER_LOSS_MASS = 18.015; // Mass of water lost per peptide bond</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/**</p>
+<p class="p1"><span class="Apple-converted-space">         </span>* Cleans the sequence and performs the analysis, updating the UI.</p>
+<p class="p1"><span class="Apple-converted-space">         </span>*/</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function analyzeSequence() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const sequenceInput = document.getElementById('sequenceInput').value;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const errorMsg = document.getElementById('errorMsg');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const resultsArea = document.getElementById('resultsArea');</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 1. Prepare and validate sequence</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const sequence = sequenceInput.toUpperCase().replace(/[^A-Z]/g, ''); // Remove spaces/newlines and non-AA codes</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>errorMsg.classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>resultsArea.classList.add('hidden');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (sequence.length === 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>errorMsg.textContent = 'Please enter a valid protein sequence.';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>errorMsg.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 2. Core Analysis Logic</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const totalLength = sequence.length;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let totalMass = 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let totalHydrophobicity = 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const counts = {};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>for (const aa of sequence) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (AMINO_ACID_PROPERTIES[aa]) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>counts[aa] = (counts[aa] || 0) + 1;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>totalMass += AMINO_ACID_PROPERTIES[aa].mass;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>totalHydrophobicity += AMINO_ACID_PROPERTIES[aa].hydrophobicity;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>// Alert user to non-standard AA codes, but continue with valid ones</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>console.warn(`Skipping non-standard amino acid code: ${aa}`);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (Object.keys(counts).length === 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                 </span>errorMsg.textContent = 'The sequence only contained non-standard characters.';</p>
+<p class="p1"><span class="Apple-converted-space">                 </span>errorMsg.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">                 </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Calculate final properties</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const waterLossMass = WATER_LOSS_MASS * (totalLength - 1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const estimatedMolecularWeight = totalMass - waterLossMass;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const averageHydrophobicity = totalHydrophobicity / totalLength;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Calculate composition</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const composition = [];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>for (const aa in counts) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const percent = (counts[aa] / totalLength) * 100;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>composition.push({</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>aa: aa,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: AMINO_ACID_PROPERTIES[aa].name,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>percent: percent</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Sort composition by percentage (highest first)</p>
+<p class="p1"><span class="Apple-converted-space">            </span>composition.sort((a, b) =&gt; b.percent - a.percent);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 3. Update the UI</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('resultLength').textContent = totalLength.toLocaleString();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('resultMass').textContent = estimatedMolecularWeight.toFixed(2);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('resultHydrophobicity').textContent = averageHydrophobicity.toFixed(3);</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const interpretation = averageHydrophobicity &gt; 0 ?<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>`The average hydrophobicity index is positive (${averageHydrophobicity.toFixed(3)}), suggesting this protein segment is more likely to be found in a hydrophobic (water-repelling) environment, like a cell membrane.` :</p>
+<p class="p1"><span class="Apple-converted-space">                </span>`The average hydrophobicity index is negative (${averageHydrophobicity.toFixed(3)}), suggesting this protein segment is more likely to be found in a hydrophilic (water-attracting) environment, like cytoplasm.`;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('resultInterpretation').textContent = interpretation;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const compositionList = document.getElementById('compositionList');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>compositionList.innerHTML = ''; // Clear old results</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>composition.forEach(item =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const div = document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>div.className = 'p-3 bg-gray-50 border border-gray-200 rounded-lg';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>div.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-sm font-bold text-gray-900"&gt;&lt;span class="matrix bg-gray-200 rounded px-1 py-0.5"&gt;${item.aa}&lt;/span&gt; ${item.name}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-xl font-semibold text-purple-700 mt-1"&gt;${item.percent.toFixed(2)}%&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>compositionList.appendChild(div);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>resultsArea.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Run analysis on load using the default example sequence</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.addEventListener('DOMContentLoaded', analyzeSequence);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
